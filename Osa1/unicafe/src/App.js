@@ -9,6 +9,11 @@ const Headline = (props) => {
 }
 
 const Statistics = (props) => {
+
+  const allFeedback= (props.goodValue+props.neutralValue+props.badValue)
+  const averageFeedback = (props.goodValue*1 + props.badValue * (-1)) / allFeedback
+  const goodPercentageFeedback = ((props.goodValue)/allFeedback)*100
+
   return  (
     <div>
     <h2>{props.statistics}</h2>
@@ -16,6 +21,9 @@ const Statistics = (props) => {
     <p>Good {props.goodValue}</p>
     <p>Neutral {props.neutralValue}</p>
     <p>Bad {props.badValue}</p>
+    <p>All {allFeedback}</p>
+    <p>Average {averageFeedback}</p>
+    <p>Positive feedback percentage {goodPercentageFeedback} %</p>
     </div>
   )
 }
