@@ -36,19 +36,7 @@ const Statistics = (props) => {
 }
 
 
-const ButtonGood = (props) => (
-  <button onClick={props.handleClick}>
-    {props.text}
-  </button>
-)
-
-const ButtonNeutral = (props) => (
-  <button onClick={props.handleClick}>
-    {props.text}
-  </button>
-)
-
-const ButtonBad = (props) => (
+const Button = (props) => (
   <button onClick={props.handleClick}>
     {props.text}
   </button>
@@ -75,11 +63,11 @@ const App = () => {
     <div>
       <Headline headline={headline} />
 
-      <ButtonGood  handleClick={increaseGoodByOne}
+      <Button  handleClick={increaseGoodByOne}
         text='Good'/>
-      <ButtonNeutral handleClick={increaseNeutralByOne}
+      <Button handleClick={increaseNeutralByOne}
         text='Neutral'/>
-      <ButtonBad handleClick={increaseBadByOne}
+      <Button handleClick={increaseBadByOne}
         text='Bad'/>
 
       <Statistics statistics={statistics} goodValue={good} neutralValue={neutral} badValue={bad}/>
