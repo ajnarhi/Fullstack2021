@@ -14,6 +14,13 @@ const Statistics = (props) => {
   const averageFeedback = (props.goodValue*1 + props.badValue * (-1)) / allFeedback
   const goodPercentageFeedback = ((props.goodValue)/allFeedback)*100
 
+  if (props.goodValue===0 && props.neutralValue===0 && props.badValue===0){
+    return(
+    <div>
+      <h2>{props.statistics}</h2>
+      <p>No feedback given!</p></div>
+    )
+  }
   return  (
     <div>
     <h2>{props.statistics}</h2>
@@ -62,7 +69,7 @@ const App = () => {
   const increaseNeutralByOne = () => setNeutral(neutral + 1)
   const increaseBadByOne = () => setBad(bad + 1)
 
-
+  
 
   return (
     <div>
