@@ -31,15 +31,36 @@ const App = () => {
     setVotes(copy)
   }
 
+  var highestVotes = 0
+  var whichAnecdote = null
+  var i;
+  for (i = 0; i < votes.length; i++) {
+    if (votes[i] > highestVotes){
+      highestVotes = votes[i]
+      whichAnecdote = i
+    }
+    console.log('Highestvotes', highestVotes, whichAnecdote)
+
+  }
+
+
   return (
     <div>
+      <h1>Anecdote of the day</h1>
+
       <p>{anecdotes[selected]}</p>
-      <p>This anekdote has this many votes: {votes[selected]}</p>
+      <p>This anecdote has this many votes: {votes[selected]}</p>
       <Button  handleClick={voteGiven}
-        text='Vote this anekdote'/>
+        text='Vote this anecdote'/>
       <Button  handleClick={randomSelected}
         text='Next anecdote!'/>
       
+      <h2>Anecdote with most votes</h2>
+      <p>{anecdotes[whichAnecdote]} </p>
+      <p>This anecdote has {highestVotes}</p>
+
+
+
     </div>
   )
 }
