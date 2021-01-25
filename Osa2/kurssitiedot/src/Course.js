@@ -41,8 +41,9 @@ const Total = (props) => {
 
   const total = props.parts.reduce( (s, p) => {
     console.log('what is happening', s, p)
-    return null 
-  })
+    return s+p.exercises 
+  }, 0)
+  
   return (
     <div>
       <p>
