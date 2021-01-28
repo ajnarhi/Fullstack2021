@@ -67,7 +67,7 @@ const Persons = (props) => {
   return (
     <div>
       {props.persons.map(person =>
-        <li>
+        <li key={person.name}> 
           {person.name} {person.number}
         </li>
 
@@ -79,7 +79,7 @@ const Persons = (props) => {
   return(
     <div>
   {props.persons.filter(person => person.name.includes(props.filteredName)).map(person =>
-        <li>
+        <li key={person.name}>
           {person.name} {person.number}
         </li>
 
