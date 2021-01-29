@@ -43,11 +43,12 @@ const PersonForm = (props) => {
     .post('http://localhost:3001/persons', personObject)
     .then(response => {
       console.log(response)
-    })
-
-      props.setPersons(props.persons.concat(personObject))
+      props.setPersons(props.persons.concat(response.data))
       props.setNewName('')
       props.setNewNumber('')
+    })
+
+     
     }
   }
 
