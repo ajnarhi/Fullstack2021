@@ -39,6 +39,12 @@ const PersonForm = (props) => {
         number: props.newNumber
       }
 
+      axios
+    .post('http://localhost:3001/persons', personObject)
+    .then(response => {
+      console.log(response)
+    })
+
       props.setPersons(props.persons.concat(personObject))
       props.setNewName('')
       props.setNewNumber('')
@@ -135,30 +141,7 @@ const App = () => {
       <Persons persons={persons} filteredName={filteredName} />
     </div>
   )
-  // return (
-  //   <div>
-  //     <h2>Phonebook</h2>
-
-  //     <h2>Add new person to phonebook</h2>
-  //     <form onSubmit={addNumber}>
-  //       <div>
-  //         Name: <input value={newName}
-  //           onChange={handleNameChange} />
-  //       </div>
-  //       <div>Number: <input value={newNumber}
-  //         onChange={handleNumberChange} /></div>
-  //       <div>
-  //         <button type="submit">Add</button>
-  //       </div>
-  //     </form>
-  //     <h2>Numbers</h2>
-  //     {persons.map(person =>
-  //       <li>
-  //         {person.name} {person.number}
-  //       </li>
-  //     )}
-  //   </div>
-  // )
+ 
 
 }
 
