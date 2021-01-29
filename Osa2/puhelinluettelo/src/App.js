@@ -22,6 +22,8 @@ const Filter = (props) => {
   )
 }
 
+
+
 const PersonForm = (props) => {
 
 
@@ -71,15 +73,40 @@ const PersonForm = (props) => {
 
 }
 
+
 const Persons = (props) => {
+
+  const deleteThisPerson = (id, name) => {
+    if (window.confirm(`Do you really want delete ${name}?`)) {
+      personService
+        .deletePerson(id)
+        .then(() => {
+
+          props.setPersons(props.persons.filter(n => n.id !== id))
+        }
+        )
+
+
+
+    }
+  }
+
+  const DeleteButton = (props) => {
+    return(
+
+    <button onClick={()=>deleteThisPerson(props.person.id, props.person.name)}>Delete</button>
+    )
+  }
+
   if (props.filteredName===''){
   return (
     <div>
       {props.persons.map(person =>
         <li key={person.name}> 
-          {person.name} {person.number}
+          {person.name} {person.number}  {} 
+        
+        <DeleteButton person={person}/>
         </li>
-
       )
       }</div>
 
@@ -89,7 +116,9 @@ const Persons = (props) => {
     <div>
   {props.persons.filter(person => person.name.includes(props.filteredName)).map(person =>
         <li key={person.name}>
-          {person.name} {person.number}
+          {person.name} {person.number} {} 
+        
+        <button onClick={()=>deleteThisPerson(person.id, person.name)}>Delete</button>
         </li>
 
       )}
@@ -97,6 +126,10 @@ const Persons = (props) => {
 }
 
 }
+
+
+
+
 const App = () => {
   const [persons, setPersons] = useState([])
   const [newName, setNewName] = useState('')
@@ -139,7 +172,7 @@ const App = () => {
 
       <h3>Numbers</h3>
 
-      <Persons persons={persons} filteredName={filteredName} />
+      <Persons persons={persons} filteredName={filteredName} setPersons={setPersons} />
     </div>
   )
  
