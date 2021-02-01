@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import axios from 'axios'
 import personService from './services/persons'
 
 
@@ -47,6 +46,11 @@ const PersonForm = (props) => {
           setTimeout(() => {
             props.setNotificationMessage(null)
           }, 5000)
+        }).catch(error => {
+          console.log('fail')
+          props.setNotificationMessage(
+            `Person with name '${props.newName} ' has already been removed from server`
+          )
         })
     } else {
 
