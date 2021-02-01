@@ -40,6 +40,13 @@ const PersonForm = (props) => {
           props.setNewName('')
           props.setNewNumber('')
           props.setPersons(props.persons.filter(n => n.id !== response.data.id).concat(response.data))
+        }).then(() => {
+          props.setNotificationMessage(
+            `Person with name '${props.newName}' has now a new phonenumber`
+          )
+          setTimeout(() => {
+            props.setNotificationMessage(null)
+          }, 5000)
         })
     } else {
 
@@ -55,133 +62,163 @@ const PersonForm = (props) => {
           props.setNewName('')
           props.setNewNumber('')
         })
-
-
-    }
-  }
-
-  return (
-    <form onSubmit={addNumber}>
-      <div>
-        Name: <input value={props.newName}
-          onChange={props.handleNameChange} />
-      </div>
-      <div>Number: <input value={props.newNumber}
-        onChange={props.handleNumberChange} /></div>
-      <div>
-        <button type="submit">Add</button>
-      </div>
-    </form>
-
-
-  )
-
-}
-
-
-const Persons = (props) => {
-
-  const deleteThisPerson = (id, name) => {
-    if (window.confirm(`Do you really want delete ${name}?`)) {
-      personService
-        .deletePerson(id)
         .then(() => {
+          props.setNotificationMessage(
+            `Person with name '${personObject.name}' has been added to phonebook`
+          )
+          setTimeout(() => {
+            props.setNotificationMessage(null)
+          }, 5000)
 
-          props.setPersons(props.persons.filter(n => n.id !== id))
-        }
-        )
 
-
-
+        })
+      }
     }
+
+    return (
+      <form onSubmit={addNumber}>
+        <div>
+          Name: <input value={props.newName}
+            onChange={props.handleNameChange} />
+        </div>
+        <div>Number: <input value={props.newNumber}
+          onChange={props.handleNumberChange} /></div>
+        <div>
+          <button type="submit">Add</button>
+        </div>
+      </form>
+
+
+    )
+
   }
 
-  const DeleteButton = (props) => {
-    return (
 
-      <button onClick={() => deleteThisPerson(props.person.id, props.person.name)}>Delete</button>
+  const Persons = (props) => {
+
+    const deleteThisPerson = (id, name) => {
+      if (window.confirm(`Do you really want delete ${name}?`)) {
+        personService
+          .deletePerson(id)
+          .then(() => {
+
+            props.setPersons(props.persons.filter(n => n.id !== id))
+          }
+          ).then(() => {
+            props.setNotificationMessage(
+              `Person with name '${name}' has been deleted from phonebook`
+            )
+            setTimeout(() => {
+              props.setNotificationMessage(null)
+            }, 5000)
+  
+  
+          })
+
+
+
+      }
+    }
+
+    const DeleteButton = (props) => {
+      return (
+
+        <button onClick={() => deleteThisPerson(props.person.id, props.person.name)}>Delete</button>
+      )
+    }
+
+    if (props.filteredName === '') {
+      return (
+        <div>
+          {props.persons.map(person =>
+            <li key={person.name}>
+              {person.name} {person.number}  { }
+
+              <DeleteButton person={person} />
+            </li>
+          )
+          }</div>
+
+      )
+    } else {
+      return (
+        <div>
+          {props.persons.filter(person => person.name.includes(props.filteredName)).map(person =>
+            <li key={person.name}>
+              {person.name} {person.number} { }
+
+              <button onClick={() => deleteThisPerson(person.id, person.name)}>Delete</button>
+            </li>
+
+          )}
+        </div>)
+    }
+
+  }
+
+
+
+  const Notification = ({ message }) => {
+    if (message === null) {
+      return null
+    }
+
+    return (
+      <div className="message">
+        {message}
+      </div>
     )
   }
 
-  if (props.filteredName === '') {
+
+  const App = () => {
+    const [persons, setPersons] = useState([])
+    const [newName, setNewName] = useState('')
+    const [newNumber, setNewNumber] = useState('')
+    const [filteredName, setFilteredName] = useState('')
+    const [notificationMessage, setNotificationMessage] = useState(null)
+
+    const handleNameChange = (event) => {
+      console.log(event.target.value)
+      setNewName(event.target.value)
+    }
+
+    const handleNumberChange = (event) => {
+      console.log(event.target.value)
+      setNewNumber(event.target.value)
+    }
+
+    useEffect(() => {
+      console.log('effect')
+      personService
+        .getAll()
+        .then(response => {
+          setPersons(response.data)
+        })
+    }, [])
+    console.log('render', persons.length, 'persons')
+
+
+
     return (
       <div>
-        {props.persons.map(person =>
-          <li key={person.name}>
-            {person.name} {person.number}  { }
+        <h2>Phonebook</h2>
 
-            <DeleteButton person={person} />
-          </li>
-        )
-        }</div>
+        <h2>Filter phonebook</h2>
+        <Filter persons={persons} filteredName={filteredName} setFilteredName={setFilteredName} />
 
+        <h2>Add new person to phonebook</h2>
+        <Notification message={notificationMessage} />
+        <PersonForm newName={newName} newNumber={newNumber} persons={persons} setNewName={setNewName} setNewNumber={setNewNumber}
+          setPersons={setPersons} handleNameChange={handleNameChange} handleNumberChange={handleNumberChange} setNotificationMessage={setNotificationMessage} />
+
+        <h3>Numbers</h3>
+
+        <Persons persons={persons} filteredName={filteredName} setPersons={setPersons} setNotificationMessage={setNotificationMessage} />
+      </div>
     )
-  } else {
-    return (
-      <div>
-        {props.persons.filter(person => person.name.includes(props.filteredName)).map(person =>
-          <li key={person.name}>
-            {person.name} {person.number} { }
 
-            <button onClick={() => deleteThisPerson(person.id, person.name)}>Delete</button>
-          </li>
 
-        )}
-      </div>)
   }
 
-}
-
-
-
-
-const App = () => {
-  const [persons, setPersons] = useState([])
-  const [newName, setNewName] = useState('')
-  const [newNumber, setNewNumber] = useState('')
-  const [filteredName, setFilteredName] = useState('')
-
-  const handleNameChange = (event) => {
-    console.log(event.target.value)
-    setNewName(event.target.value)
-  }
-
-  const handleNumberChange = (event) => {
-    console.log(event.target.value)
-    setNewNumber(event.target.value)
-  }
-
-  useEffect(() => {
-    console.log('effect')
-    personService
-      .getAll()
-      .then(response => {
-        setPersons(response.data)
-      })
-  }, [])
-  console.log('render', persons.length, 'persons')
-
-
-
-  return (
-    <div>
-      <h2>Phonebook</h2>
-
-      <h2>Filter phonebook</h2>
-      <Filter persons={persons} filteredName={filteredName} setFilteredName={setFilteredName} />
-
-      <h2>Add new person to phonebook</h2>
-
-      <PersonForm newName={newName} newNumber={newNumber} persons={persons} setNewName={setNewName} setNewNumber={setNewNumber}
-        setPersons={setPersons} handleNameChange={handleNameChange} handleNumberChange={handleNumberChange} />
-
-      <h3>Numbers</h3>
-
-      <Persons persons={persons} filteredName={filteredName} setPersons={setPersons} />
-    </div>
-  )
-
-
-}
-
-export default App
+  export default App
