@@ -30,20 +30,24 @@ const PersonForm = (props) => {
   const addNumber = (event) => {
     event.preventDefault()
     console.log('button clicked', event.target)
-
-    if (props.persons.some(p => p.name === props.newName)) {
-      alert(props.newName + ' is already added to phonebook')
+    //props.persons.some(p => p.name === props.newName some kertoo, että löytyykö vai eikö löydy (true, false)
+    const existingPerson=props.persons.filter(p => p.name === props.newName) //filter tekee listan löytyneistä/löytyneestä
+    if (existingPerson.length>0) {
+      window.confirm(props.newName + ' is already added to phonebook. Do you want to replace their old number with the new number?')
+      personService
+        .replaceOldNumber(existingPerson[0].id, props.newName, props.newNumber)
+        .then(response => {
       props.setNewName('')
       props.setNewNumber('')
-    } else {
+      props.setPersons(props.persons.filter(n => n.id !== response.data.id).concat(response.data))
+    } )}else {
 
       const personObject = {
         name: props.newName,
         number: props.newNumber
       }
 
-      axios
-    .post('http://localhost:3001/persons', personObject)
+      personService.create(personObject)
     .then(response => {
       console.log(response)
       props.setPersons(props.persons.concat(response.data))
