@@ -32,7 +32,7 @@ const PersonForm = (props) => {
     //props.persons.some(p => p.name === props.newName some kertoo, että löytyykö vai eikö löydy (true, false)
     const existingPerson = props.persons.filter(p => p.name === props.newName) //filter tekee listan löytyneistä/löytyneestä
     if (existingPerson.length > 0) {
-      window.confirm(props.newName + ' is already added to phonebook. Do you want to replace their old number with the new number?')
+      if(window.confirm(props.newName + ' is already added to phonebook. Do you want to replace their old number with the new number?')){
       personService
         .replaceOldNumber(existingPerson[0].id, props.newName, props.newNumber)
         .then(response => {
@@ -51,7 +51,7 @@ const PersonForm = (props) => {
           props.setNotificationMessage(
             `Person with name '${props.newName} ' has already been removed from server`
           )
-        })
+        })}
     } else {
 
       const personObject = {
