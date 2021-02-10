@@ -75,6 +75,12 @@ const PersonForm = (props) => {
           }, 5000)
 
 
+        }).catch(error => {
+          // pääset käsiksi palvelimen palauttamaan virheilmoitusolioon näin
+          console.log(error.response.data)
+          props.setNotificationMessage(
+            error.response.data
+          )
         })
       }
     }
