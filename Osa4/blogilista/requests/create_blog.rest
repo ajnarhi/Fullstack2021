@@ -1,0 +1,12 @@
+POST http://localhost:3003/api/blogs
+  Content-Type: application/json
+
+  {
+    
+"title": "My superblog",
+"author": "AnnuJee",
+"url": "www.annujeeblogi.fi",
+"like": "23456"
+ 
+
+  }
