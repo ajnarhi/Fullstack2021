@@ -2,6 +2,25 @@ const dummy = (blogs) => {
   return 1
 }
 
-module.exports = {
-  dummy
+const totalLikes = (blogs) =>{
+ const totalLikes=blogs.reduce((total, value)=>total+ value.likes, 0) //0 on total eli arvo alussa, value on juuri se blogi jota mennään läpi
+ 
+
+ return totalLikes
 }
+
+module.exports = {
+  dummy, totalLikes
+}
+
+
+
+
+
+
+// VAIHTOEHTOINEN LISTAN LÄPIKÄYNTITAPA
+// const totalLikes=0
+
+// blogs.forEach(blog=>totalLikes+=blog.likes)
+
+// return totalLikes
