@@ -42,6 +42,12 @@ test('there are two blogs', async () => {
   expect(response.body).toHaveLength(2)
 })
 
+
+test('Identification is id instead of _id', async () => {
+  const response = await api.get('/api/blogs')
+  
+  expect(response.body[0].id).toBeDefined();
+});
 // test('the first note is about HTTP methods', async () => {
 //   const response = await api.get('/api/notes')
 
