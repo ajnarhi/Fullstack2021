@@ -19,11 +19,8 @@ usersRouter.post('/', async (request, response) => {
   response.json(savedUser)
 })
 
-usersRouter.get('/', (request, response) => {
-  User
-    .find({})
-    .then(blogs => {
-      response.json(blogs)
-    })
-  })
+usersRouter.get('/', async (request, response) => {
+  const users = await User.find({})
+  response.json(users.map(u => u.toJSON()))
+})
   module.exports = usersRouter
