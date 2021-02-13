@@ -14,8 +14,6 @@ blogsRouter.get('/', (request, response) => {
 
 
 blogsRouter.post('/', (request, response) => {
-  console.log(request, request.params, request.headers)
-
   const blog = new Blog(request.body)
   if (blog.title==='' && blog.url ===''){
     blog
@@ -28,7 +26,6 @@ blogsRouter.post('/', (request, response) => {
   if (blog.likes===null){
     blog.likes=0
   }
-  console.log(blog)
 
   blog
     .save()

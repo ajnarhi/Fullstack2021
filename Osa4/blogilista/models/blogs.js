@@ -13,8 +13,13 @@ blogSchema.set('toJSON', {
     returnedObject.id = returnedObject._id.toString()
     delete returnedObject._id
     delete returnedObject.__v
+  },
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
   }
 })
+
 
 const Blog = mongoose.model('Blog', blogSchema)
 
