@@ -39,4 +39,15 @@ blogsRouter.post('/', (request, response) => {
   }
 })
 
+
+blogsRouter.delete('/:id', (request, response) => {
+  //const id = Number(request.params.id)
+  Blog
+    .findById(request.params.id).then(blog => {
+      blog.delete()
+      response.status(201).json('jee')
+    })
+ 
+})
+
 module.exports = blogsRouter
