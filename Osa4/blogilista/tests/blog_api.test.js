@@ -79,6 +79,29 @@ test('POST adds a blog to bloglist', async () => {
   )
 })
 
+test('POST sets likes to 0 if null', async () => {
+  const newBlog = {
+    title: 'Zero likes blog',
+    author: 'Annu Zero',
+    url: 'www.annuzero.fi',
+    likes: null
+  }
+
+  await api
+    .post('/api/blogs')
+    .send(newBlog)
+    .expect(201)
+    .expect('Content-Type', /application\/json/)
+
+  const response = await api.get('/api/blogs')
+
+  const contents = response.body.map(r => r.likes)
+
+  expect(response.body).toHaveLength(initialBlogs.length + 1)
+  expect(contents).toContain(
+  0
+  )
+})
 
 afterAll(() => {
   mongoose.connection.close()
