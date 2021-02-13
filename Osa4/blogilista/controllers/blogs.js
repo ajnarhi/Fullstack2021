@@ -17,6 +17,14 @@ blogsRouter.post('/', (request, response) => {
   console.log(request, request.params, request.headers)
 
   const blog = new Blog(request.body)
+  if (blog.title==='' && blog.url ===''){
+    blog
+    .save()
+    .then(result => {
+      response.status(400).json(result)
+    })
+  }else{
+
   if (blog.likes===null){
     blog.likes=0
   }
@@ -27,6 +35,8 @@ blogsRouter.post('/', (request, response) => {
     .then(result => {
       response.status(201).json(result)
     })
+  
+  }
 })
 
 module.exports = blogsRouter

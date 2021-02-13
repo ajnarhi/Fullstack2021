@@ -103,6 +103,24 @@ test('POST sets likes to 0 if null', async () => {
   )
 })
 
+
+test('POST responds with bad request if title and url are empty', async () => {
+  const newBlog = {
+    title: '',
+    author: 'Annu Zero',
+    url: '',
+    likes: 2000
+  }
+
+  await api
+    .post('/api/blogs')
+    .send(newBlog)
+    .expect(400)
+  
+})
+
+
+
 afterAll(() => {
   mongoose.connection.close()
 })
