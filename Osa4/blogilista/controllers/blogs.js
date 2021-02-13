@@ -40,13 +40,20 @@ blogsRouter.post('/', (request, response) => {
 })
 
 
-blogsRouter.delete('/:id', (request, response) => {
-  //const id = Number(request.params.id)
-  Blog
-    .findById(request.params.id).then(blog => {
-      blog.delete()
-      response.status(201).json('jee')
-    })
+blogsRouter.delete('/:id', async (request, response) => { //asyncversio
+  let blog = await Blog //let, jotta voi muuttua. (const pysyvä)käy hakemassa blogi ja ODOTA että saat vastauksen. Jos ei olisi await, niin ei odotettaisi vastausta. Ilman awaittia se olisi promise eli saat joskus tulevaisuudessa blogin.
+    .findById(request.params.id)
+  blog.delete()
+  response.status(201).json('jee')
+
+
+// blogsRouter.delete('/:id', (request, response) => { //promiseversio
+//   //const id = Number(request.params.id)
+//   Blog
+//     .findById(request.params.id).then(blog => {
+//       blog.delete()
+//       response.status(201).json('jee')
+//     })
  
 })
 
