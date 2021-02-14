@@ -6,7 +6,8 @@ POST http://localhost:3003/api/blogs
 "title": "My superblogIIIII",
 "author": "AnnuJee",
 "url": "www.annujeeblogi.fi",
-"likes": 23456
+"likes": 23456,
+"userId": "6029733917101e61256dd22c"
  
 
   }
@@ -19,7 +20,7 @@ POST http://localhost:3003/api/blogs
 "title": "My superblog vol3",
 "author": "AnnuJeeTaas",
 "url": "www.annujeeblogikaksi.fi",
-"likes": 234588856
- 
+"likes": 234588856,
+ "userId": "6029733917101e61256dd22c"
 
   }

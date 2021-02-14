@@ -3,8 +3,8 @@ POST http://localhost:3003/api/users
 
   {  
 
-   "username": "mluukkai",
-      "name": "Matti Luukkainen",
+   "username": "annu",
+      "name": "Annu Närkii",
      "password": "salainen"
     
  
