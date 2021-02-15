@@ -4,7 +4,18 @@ const User = require('../models/user')
 
 usersRouter.post('/', async (request, response) => {
   const body = request.body
-
+  if (body.username===null){
+    return response.status(400).json({ error: 'username cannot be null' })
+  }
+  else if(body.password===null){
+    return response.status(400).json({ error: 'password can not be null' })
+  }
+  else if(body.username.length < 3){
+    return response.status(400).json({ error: 'username too short' })
+  }
+  else if(body.password.length < 3 ){
+    return response.status(400).json({ error: 'password too short' })
+  }else{
   const saltRounds = 10
   const passwordHash = await bcrypt.hash(body.password, saltRounds)
 
@@ -17,6 +28,7 @@ usersRouter.post('/', async (request, response) => {
   const savedUser = await user.save()
 
   response.json(savedUser)
+}
 })
 
 
