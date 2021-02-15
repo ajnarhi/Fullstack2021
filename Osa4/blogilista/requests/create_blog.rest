@@ -1,5 +1,6 @@
 POST http://localhost:3003/api/blogs
-  Content-Type: application/json
+Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFubnUiLCJpZCI6IjYwMjk3MzM5MTcxMDFlNjEyNTZkZDIyYyIsImlhdCI6MTYxMzM5OTQwM30.z0-z1BS9Ke6esSj1PDduUF_CX5fHrFel8GfyZdPaxgY
 
   {
     
@@ -12,8 +13,8 @@ POST http://localhost:3003/api/blogs
 
   }
 ###
-  POST http://localhost:3003/api/blogs
-  Content-Type: application/json
+POST http://localhost:3003/api/blogs
+Content-Type: application/json
 
   {
     
