@@ -5,7 +5,7 @@ const User = require('../models/user')
 usersRouter.post('/', async (request, response) => {
   const body = request.body
   if (body.username===null){
-    return response.status(400).json({ error: 'username cannot be null' })
+    return response.status(400).json({ error: 'username can not be null' })
   }
   else if(body.password===null){
     return response.status(400).json({ error: 'password can not be null' })
