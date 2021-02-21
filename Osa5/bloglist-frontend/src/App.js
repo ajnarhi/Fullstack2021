@@ -17,12 +17,21 @@ const App = () => {
   const [errorMessage, setErrorMessage]=useState(null)
   
   
- 
+  //arr.sort([compareFunction])
 
   useEffect(() => {
-    blogService.getAll().then(blogs =>
+    blogService.getAll().then(blogs =>{
+      blogs.sort((a,b)=>{
+      if(a.likes>b.likes){
+        return -1
+      }if(a.likes<b.likes){
+        return 1
+      }
+        return 0
+      
+      })
       setBlogs( blogs )
-    )  
+    })  
   }, [])
 //käyttäjän tieto pysyvästi tietoon, ettei se refreshaamalla sivu katoa
   useEffect(() => {
@@ -116,7 +125,7 @@ const App = () => {
           />
       <p> </p>
       {blogs.map(blog =>
-        <Blog key={blog.id} blog={blog} />
+        <Blog key={blog.id} blog={blog} setBlogs={setBlogs} blogs={blogs} />
       )}
     </div>
   )
