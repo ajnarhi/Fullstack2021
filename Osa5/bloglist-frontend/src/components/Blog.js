@@ -32,6 +32,23 @@ const Blog = ({ blog, setBlogs,blogs}) => {
     }))
   }  
 
+
+  const handleDeleteBlogButton = async (event) => {
+    event.preventDefault()
+    const deleteBlog= {id:blog.id}
+    await blogService.deleteBlog(deleteBlog)
+    setBlogs(blogs.filter(blog=>{
+      if(blog.id!==deleteBlog.id){
+        return true //halutaan säästää ne blogit joiden id ei ole deletoidun, filtterill siis true
+      }else{
+        return false
+      }
+
+    }))
+
+
+  } 
+
   return (
     <div style={blogStyle}>
 
@@ -51,6 +68,8 @@ const Blog = ({ blog, setBlogs,blogs}) => {
         <p> Likes {blog.likes} { } <button onClick={handleLikeButton}>Like</button></p> 
 
         <p>  {blog.author}</p>
+
+        <button onClick={handleDeleteBlogButton}>Delete blog</button>
 
       </div>
     </div>
