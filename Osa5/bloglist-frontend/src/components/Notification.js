@@ -1,20 +1,20 @@
-import React, {useState} from 'react'
+import React from 'react'
 const Notification = ({ message, isError }) => {
   if (message === null) {
     return null
-  }else if (isError){
+  } else if (isError) {
 
-  return (
-    <div className="error">
-      {message}
-    </div>
-  )
-}else{
-  return(
-    <div className="positiveinfo">
-      {message}
-    </div>
-  )
+    return (
+      <div className="error">
+        {message}
+      </div>
+    )
+  } else {
+    return (
+      <div className="positiveinfo">
+        {message}
+      </div>
+    )
   }
 }
 

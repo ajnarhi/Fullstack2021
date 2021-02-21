@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import blogService from '../services/blogs'
 
-const Blog = ({ blog, setBlogs,blogs}) => {
+const Blog = ({ blog, setBlogs,blogs }) => {
   const [bloginfoVisible, setBloginfoVisible] = useState(false)
 
 
@@ -20,9 +20,9 @@ const Blog = ({ blog, setBlogs,blogs}) => {
   const handleLikeButton = async (event) => {
     event.preventDefault()
     console.log('clicked like button')
-    const newLike= {title:blog.title,author:blog.author, url:blog.url,likes:blog.likes+1, user:blog.user.id, id:blog.id}
+    const newLike= { title:blog.title,author:blog.author, url:blog.url,likes:blog.likes+1, user:blog.user.id, id:blog.id }
     const returnedBlog=await blogService.likeBlog(newLike)
-    setBlogs(blogs.map(blog=>{
+    setBlogs(blogs.map(blog => {
       if(blog.id!==returnedBlog.id){
         return blog
       }else{
@@ -30,14 +30,13 @@ const Blog = ({ blog, setBlogs,blogs}) => {
       }
 
     }))
-  }  
-
+  }
 
   const handleDeleteBlogButton = async (event) => {
     event.preventDefault()
-    const deleteBlog= {id:blog.id}
+    const deleteBlog= { id:blog.id }
     await blogService.deleteBlog(deleteBlog)
-    setBlogs(blogs.filter(blog=>{
+    setBlogs(blogs.filter(blog => {
       if(blog.id!==deleteBlog.id){
         return true //halutaan säästää ne blogit joiden id ei ole deletoidun, filtterill siis true
       }else{
@@ -47,7 +46,7 @@ const Blog = ({ blog, setBlogs,blogs}) => {
     }))
 
 
-  } 
+  }
 
   return (
     <div style={blogStyle}>
@@ -65,7 +64,7 @@ const Blog = ({ blog, setBlogs,blogs}) => {
 
         <p>  {blog.url}</p>
 
-        <p> Likes {blog.likes} { } <button onClick={handleLikeButton}>Like</button></p> 
+        <p> Likes {blog.likes} { } <button onClick={handleLikeButton}>Like</button></p>
 
         <p>  {blog.author}</p>
 

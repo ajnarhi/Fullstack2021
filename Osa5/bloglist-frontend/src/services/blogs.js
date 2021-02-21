@@ -20,20 +20,20 @@ const create = async newBlog => {
   return response.data
 }
 
-const likeBlog = async newLike =>{
+const likeBlog = async newLike => {
   const config = {
     headers: { Authorization: token },
   }
-const response = await axios.put(baseUrl+'/'+newLike.id, newLike, config)
-return response.data
+  const response = await axios.put(baseUrl + '/' + newLike.id, newLike, config)
+  return response.data
 }
 
-const deleteBlog = async deleteBlog =>{
-  
+const deleteBlog = async deleteBlog => {
+
   const config = {
     headers: { Authorization: token },
   }
- await axios.delete(baseUrl+'/'+deleteBlog.id, config)
+  await axios.delete(baseUrl + '/' + deleteBlog.id, config)
 
 
 }

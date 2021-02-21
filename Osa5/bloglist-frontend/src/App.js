@@ -11,29 +11,29 @@ import BlogForm from './components/BlogForm'
 
 const App = () => {
   const [blogs, setBlogs] = useState([])
-  const [username, setUsername] = useState('') 
-  const [password, setPassword] = useState('') 
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
   const [user, setUser] = useState(null)
-  const [errorMessage, setErrorMessage]=useState(null)
-  
-  
+  const [errorMessage, setErrorMessage] = useState(null)
+
+
   //arr.sort([compareFunction])
 
   useEffect(() => {
-    blogService.getAll().then(blogs =>{
-      blogs.sort((a,b)=>{
-      if(a.likes>b.likes){
-        return -1
-      }if(a.likes<b.likes){
-        return 1
-      }
+    blogService.getAll().then(blogs => {
+      blogs.sort((a, b) => {
+        if (a.likes > b.likes) {
+          return -1
+        } if (a.likes < b.likes) {
+          return 1
+        }
         return 0
-      
+
       })
-      setBlogs( blogs )
-    })  
+      setBlogs(blogs)
+    })
   }, [])
-//käyttäjän tieto pysyvästi tietoon, ettei se refreshaamalla sivu katoa
+  //käyttäjän tieto pysyvästi tietoon, ettei se refreshaamalla sivu katoa
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem('loggedBlogappUser')
     if (loggedUserJSON) {
@@ -42,7 +42,7 @@ const App = () => {
       blogService.setToken(user.token)
     }
   }, [])//tyhjä taulukko: efekti suoritetaan vain kun komponentti renderöidään ensimmäistä kertaa
-//sisäänkirjautumisen käsittely
+  //sisäänkirjautumisen käsittely
   const handleLogin = async (event) => {
     event.preventDefault()
     console.log('logging in with', username, password)
@@ -52,7 +52,7 @@ const App = () => {
       })
       window.localStorage.setItem(
         'loggedBlogappUser', JSON.stringify(user)
-      ) 
+      )
       blogService.setToken(user.token)
       setUser(user)
       setUsername('')
@@ -64,7 +64,7 @@ const App = () => {
       }, 5000)
     }
   }
-//uloskirjautumisnappula
+  //uloskirjautumisnappula
   const handleLogout = (event) => {
     event.preventDefault()
     console.log('clicked')
@@ -79,36 +79,36 @@ const App = () => {
 
 
   if (user === null) {
-  return (
-    <div>
-      <h2>Log in to application</h2>
-      <Notification message={errorMessage} isError={true} />
+    return (
+      <div>
+        <h2>Log in to application</h2>
+        <Notification message={errorMessage} isError={true} />
 
-      <form onSubmit={handleLogin}>
-        <div>
-          Username:
-          <p> </p>
+        <form onSubmit={handleLogin}>
+          <div>
+            Username:
+            <p> </p>
             <input
-            type="text"
-            value={username}
-            name="Username"
-            onChange={({ target }) => setUsername(target.value)}
-          />
-        </div>
-        <div>
-        <p></p>
+              type="text"
+              value={username}
+              name="Username"
+              onChange={({ target }) => setUsername(target.value)}
+            />
+          </div>
+          <div>
+            <p></p>
           Password:
-          <p></p>
+            <p></p>
             <input
-            type="password"
-            value={password}
-            name="Password"
-            onChange={({ target }) => setPassword(target.value)}
-          />
-        </div>
-        <p> </p>
-        <button type="submit">Log in</button>
-      </form>
+              type="password"
+              value={password}
+              name="Password"
+              onChange={({ target }) => setPassword(target.value)}
+            />
+          </div>
+          <p> </p>
+          <button type="submit">Log in</button>
+        </form>
       </div>
     )
   }
@@ -120,9 +120,9 @@ const App = () => {
       <p> </p>
       <button onClick={handleLogout}>Log out!</button>
       <BlogForm
-            setBlogs={setBlogs}
-            blogs={blogs}
-          />
+        setBlogs={setBlogs}
+        blogs={blogs}
+      />
       <p> </p>
       {blogs.map(blog =>
         <Blog key={blog.id} blog={blog} setBlogs={setBlogs} blogs={blogs} />
