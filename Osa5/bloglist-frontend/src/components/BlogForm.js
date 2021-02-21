@@ -1,6 +1,7 @@
 import React, {useState} from 'react' 
 import Notification from './Notification'
 import blogService from '../services/blogs'
+import PropTypes from 'prop-types'
 
 
 
@@ -43,6 +44,12 @@ const BlogForm = ({
     setTitle('')
     setUrl('')
   } 
+
+
+  BlogForm.propTypes = {
+    setBlogs: PropTypes.func.isRequired,
+    blogs: PropTypes.array.isRequired
+  }
 return(
   <div>
 <h2>Create new blog</h2>
