@@ -3,25 +3,11 @@ import React, { useState, useEffect } from 'react'
 import Blog from './components/Blog'
 import blogService from './services/blogs'
 import loginService from './services/login'
+import Notification from './components/Notification'
+import BlogForm from './components/BlogForm'
 
-const Notification = ({ message, isError }) => {
-  if (message === null) {
-    return null
-  }else if (isError){
 
-  return (
-    <div className="error">
-      {message}
-    </div>
-  )
-}else{
-  return(
-    <div className="positiveinfo">
-      {message}
-    </div>
-  )
-  }
-}
+
 
 const App = () => {
   const [blogs, setBlogs] = useState([])
@@ -29,10 +15,9 @@ const App = () => {
   const [password, setPassword] = useState('') 
   const [user, setUser] = useState(null)
   const [errorMessage, setErrorMessage]=useState(null)
-  const [positiveMessage, setPositiveMessage]=useState(null)
-  const [title, setTitle] = useState('')
-  const [author, setAuthor] = useState('')
-  const [url, setUrl] = useState('')
+  
+  
+ 
 
   useEffect(() => {
     blogService.getAll().then(blogs =>
@@ -82,23 +67,7 @@ const App = () => {
     console.log(user)
   }
 
-  //Uuden blogin luominen
-  const handleNewblog=(event)=>{
-    event.preventDefault()
-    console.log('clicked')
-    const newBlog= {title,author,url}
-    blogService.create(newBlog) //tämä kohta rikkoi hetkellisesti sisäänkirjautumisen. Miksi?
-    .then (returnedBlog=>{ //luodaan uusi blogi ja luodaan uusi lista johon lisätään palautettu blogi
-      setBlogs(blogs.concat(returnedBlog))
-    })
-    setPositiveMessage(title + ' added to bloglist')
-      setTimeout(() => {
-        setPositiveMessage(null)
-      }, 5000)
-    setAuthor('')
-    setTitle('')
-    setUrl('')
-  } 
+
 
   if (user === null) {
   return (
@@ -141,46 +110,10 @@ const App = () => {
       {user.name} logged in!
       <p> </p>
       <button onClick={handleLogout}>Log out!</button>
-<h2>Create new blog</h2>
-<Notification message={positiveMessage} isError={false}/>
-<p> </p>
-<form onSubmit={handleNewblog}>
-        <div>
-          Title:
-          <p> </p>
-            <input
-            type="text"
-            value={title}
-            name="Title"
-            onChange={({ target }) => setTitle(target.value)}
+      <BlogForm
+            setBlogs={setBlogs}
+            blogs={blogs}
           />
-        </div>
-        <div>
-        <p></p>
-          Author:
-          <p></p>
-            <input
-            type="text"
-            value={author}
-            name="Author"
-            onChange={({ target }) => setAuthor(target.value)}
-          />
-        </div>
-        <div>
-        <p></p>
-          URL:
-          <p></p>
-            <input
-            type="text"
-            value={url}
-            name="Url"
-            onChange={({ target }) => setUrl(target.value)}
-          />
-        </div>
-        <p> </p>
-        <button type="submit">Create blog</button>
-      </form>
-      
       <p> </p>
       {blogs.map(blog =>
         <Blog key={blog.id} blog={blog} />
