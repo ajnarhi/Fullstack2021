@@ -49,7 +49,7 @@ const Blog = ({ blog, setBlogs,blogs }) => {
   }
 
   return (
-    <div style={blogStyle}>
+    <div style={blogStyle} className='blog'>
 
 
       <h3>{blog.title} { }
@@ -64,7 +64,7 @@ const Blog = ({ blog, setBlogs,blogs }) => {
 
         <p>  {blog.url}</p>
 
-        <p> Likes {blog.likes} { } <button onClick={handleLikeButton}>Like</button></p>
+        <p className='likes'> Likes {blog.likes} { } <button onClick={handleLikeButton}>Like</button></p>
 
         <p>  {blog.author}</p>
 
