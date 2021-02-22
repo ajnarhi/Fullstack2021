@@ -55,6 +55,21 @@ describe('Login',function() {
       cy.contains('View bloginfo')
       // ...
     })
+
+    it('A blog can be liked', function() {
+      cy.contains('Create blog').click()
+      cy.get('#title').type('Ihana blogini')
+      cy.get('#author').type('Annu Paras')
+      cy.get('#url').type('www.salainenblogi.fi')
+      cy.contains('Send blog to bloglist').click()
+      cy.contains('Ihana blogini')
+      cy.contains('View bloginfo').click()
+      cy.contains('Like').click()
+      cy.contains('1')
+      cy.contains('Like').click()
+      cy.contains('2')
+      // ...
+    })
   })
- 
+
 })
