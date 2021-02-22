@@ -84,7 +84,7 @@ const App = () => {
         <h2>Log in to application</h2>
         <Notification message={errorMessage} isError={true} />
 
-        <form onSubmit={handleLogin}>
+        <form onSubmit={handleLogin} id='loginForm'>
           <div>
             Username:
             <p> </p>
