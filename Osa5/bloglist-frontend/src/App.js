@@ -77,20 +77,6 @@ const App = () => {
   }
 
 
-  const handleLikeButton = async (event) => {
-    event.preventDefault()
-    console.log('clicked like button')
-    const newLike= { title:blog.title,author:blog.author, url:blog.url,likes:blog.likes+1, user:blog.user.id, id:blog.id }
-    const returnedBlog=await blogService.likeBlog(newLike)
-    setBlogs(blogs.map(blog => {
-      if(blog.id!==returnedBlog.id){
-        return blog
-      }else{
-        return returnedBlog
-      }
-
-    }))
-  }
 
   if (user === null) {
     return (
@@ -139,7 +125,7 @@ const App = () => {
       />
       <p> </p>
       {blogs.map(blog =>
-        <Blog key={blog.id} blog={blog} setBlogs={setBlogs} blogs={blogs} handleLikeButton={handleLikeButton} />
+        <Blog key={blog.id} blog={blog} setBlogs={setBlogs} blogs={blogs} />
       )}
     </div>
   )
