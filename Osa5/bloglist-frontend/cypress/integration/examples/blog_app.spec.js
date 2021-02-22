@@ -37,4 +37,24 @@ describe('Login',function() {
       // ...
     })
   })
+
+  describe('When logged in', function() {
+    beforeEach(function() {
+      cy.get('#username').type('annu')
+      cy.get('#password').type('salainen')
+      cy.get('#loginButton').click()
+    })
+
+    it('A blog can be created', function() {
+      cy.contains('Create blog').click()
+      cy.get('#title').type('Ihana blogini')
+      cy.get('#author').type('Annu Paras')
+      cy.get('#url').type('www.salainenblogi.fi')
+      cy.contains('Send blog to bloglist').click()
+      cy.contains('Ihana blogini')
+      cy.contains('View bloginfo')
+      // ...
+    })
+  })
+ 
 })

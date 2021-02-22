@@ -57,7 +57,7 @@ const BlogForm = ({
       <Notification message={errorMessage} isError={true} />
       <p> </p>
       <div style={hideWhenVisible}>
-        <button onClick={() => setBlogaddVisible(true)}>Create blog</button>
+        <button  onClick={() => setBlogaddVisible(true)}>Create blog</button>
       </div>
       <div style={showWhenVisible}>
         <form onSubmit={handleNewblog}>
@@ -65,6 +65,7 @@ const BlogForm = ({
           Title:
             <p> </p>
             <input
+              id="title"
               type="text"
               value={title}
               name="Title"
@@ -76,6 +77,7 @@ const BlogForm = ({
           Author:
             <p></p>
             <input
+              id="author"
               type="text"
               value={author}
               name="Author"
@@ -87,6 +89,7 @@ const BlogForm = ({
           URL:
             <p></p>
             <input
+              id="url"
               type="text"
               value={url}
               name="Url"
@@ -94,7 +97,7 @@ const BlogForm = ({
             />
           </div>
           <p> </p>
-          <button type="submit">Create blog</button>
+          <button type="submit">Send blog to bloglist</button>
         </form>
         <button onClick={() => setBlogaddVisible(false)}>cancel</button>
       </div>
