@@ -89,6 +89,7 @@ const App = () => {
             Username:
             <p> </p>
             <input
+              id='username'
               type="text"
               value={username}
               name="Username"
@@ -100,6 +101,7 @@ const App = () => {
           Password:
             <p></p>
             <input
+              id='password'
               type="password"
               value={password}
               name="Password"
@@ -107,7 +109,7 @@ const App = () => {
             />
           </div>
           <p> </p>
-          <button type="submit">Log in</button>
+          <button type="submit" id="loginButton">Log in</button>
         </form>
       </div>
     )
