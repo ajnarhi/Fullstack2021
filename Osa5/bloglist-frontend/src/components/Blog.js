@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import blogService from '../services/blogs'
 
-const Blog = ({ blog, setBlogs,blogs }) => {
+const Blog = ({ blog, setBlogs,blogs, handleLikeButton }) => {
   const [bloginfoVisible, setBloginfoVisible] = useState(false)
 
 
@@ -17,20 +17,6 @@ const Blog = ({ blog, setBlogs,blogs }) => {
     marginBottom: 5
   }
 
-  const handleLikeButton = async (event) => {
-    event.preventDefault()
-    console.log('clicked like button')
-    const newLike= { title:blog.title,author:blog.author, url:blog.url,likes:blog.likes+1, user:blog.user.id, id:blog.id }
-    const returnedBlog=await blogService.likeBlog(newLike)
-    setBlogs(blogs.map(blog => {
-      if(blog.id!==returnedBlog.id){
-        return blog
-      }else{
-        return returnedBlog
-      }
-
-    }))
-  }
 
   const handleDeleteBlogButton = async (event) => {
     event.preventDefault()
