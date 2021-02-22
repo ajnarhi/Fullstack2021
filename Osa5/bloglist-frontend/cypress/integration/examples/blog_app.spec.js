@@ -1,7 +1,12 @@
-
+const blog = {
+  title: 'AnnunTestiblogi',
+  author: 'Annu',
+  url: 'www.testiurli.fi'
+}
 
 beforeEach(function() {
   cy.request('POST', 'http://localhost:3003/api/testing/reset')
+ 
   const user = {
     name: 'Annu Närkii',
     username: 'annu',
@@ -82,6 +87,27 @@ describe('Login',function() {
       cy.contains('Delete blog').click()
       cy.wait(5000)
       cy.contains('Ihana blogini').should('not.exist')
+
+    })
+    it('Blogs are ordered by likes', function() {
+      const blog1 = { ...blog, likes: 1 }
+      const blog2 = { ...blog, likes: 10 }
+      const blog3 = { ...blog, likes: 20 }
+
+      cy.createBlog('POST', 'http://localhost:3003/api/blogs/', blog1)
+      cy.createBlog('POST', 'http://localhost:3003/api/blogs/', blog2)
+      cy.createBlog('POST', 'http://localhost:3003/api/blogs/', blog3)
+
+      // cy.contains('Create blog').click()
+      // cy.get('#title').type('Ihana blogini')
+      // cy.get('#author').type('Annu Paras')
+      // cy.get('#url').type('www.salainenblogi.fi')
+      // cy.contains('Send blog to bloglist').click()
+      // cy.contains('Ihana blogini')
+      // cy.contains('View bloginfo').click()
+      // cy.contains('Delete blog').click()
+      // cy.wait(5000)
+      // cy.contains('Ihana blogini').should('not.exist')
 
     })
   })

@@ -54,10 +54,10 @@ const Blog = ({ blog, setBlogs,blogs }) => {
 
       <h3>{blog.title} { }
         <span style={hideWhenVisible}>
-          <button onClick={() => setBloginfoVisible(true)}>View bloginfo</button>
+          <button onClick={() => setBloginfoVisible(true)} id='bloginfo'>View bloginfo</button>
         </span>
         <span style={showWhenVisible}>
-          <button onClick={() => setBloginfoVisible(false)}>Hide</button>
+          <button onClick={() => setBloginfoVisible(false)}id='hide'>Hide</button>
         </span>
       </h3>
       <div style={showWhenVisible}>
