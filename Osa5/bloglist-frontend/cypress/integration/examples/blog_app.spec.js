@@ -70,6 +70,20 @@ describe('Login',function() {
       cy.contains('2')
       // ...
     })
+
+    it('A blog can be deleted', function() {
+      cy.contains('Create blog').click()
+      cy.get('#title').type('Ihana blogini')
+      cy.get('#author').type('Annu Paras')
+      cy.get('#url').type('www.salainenblogi.fi')
+      cy.contains('Send blog to bloglist').click()
+      cy.contains('Ihana blogini')
+      cy.contains('View bloginfo').click()
+      cy.contains('Delete blog').click()
+      cy.wait(5000)
+      cy.contains('Ihana blogini').should('not.exist')
+
+    })
   })
 
 })
