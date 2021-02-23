@@ -22,13 +22,13 @@ const initialState = anecdotesAtStart.map(asObject)
 const reducer = (state = initialState, action) => {
 
   console.log('state now: ', state)
-  
+
   console.log('action', action)
 
   switch (action.type) {
     case 'VOTE':
-      
-      return state.map(anecdote => {
+
+      return state.map(anecdote => { //mapataan uusi taulukko siten, että jos id on eri kuin klikatun se lisätään sellaisenaan. Jos sama: lisää uusi olio
         if (anecdote.id !== action.data) {
           return anecdote
         } else {
@@ -38,12 +38,16 @@ const reducer = (state = initialState, action) => {
             votes: anecdote.votes + 1
 
           }
-        }})
+        }
+      })
+      case 'NEW_ANECDOTE':
+        return state.concat([action.data]) //stateen konkatenoidaan (yhdistetään) toinen taulukko
+
 
     default:
       return state
   }
-  
+
 }
 
 export default reducer
