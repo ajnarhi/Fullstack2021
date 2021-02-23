@@ -6,7 +6,25 @@ const anecdotesAtStart = [
   'Premature optimization is the root of all evil.',
   'Debugging is twice as hard as writing the code in the first place. Therefore, if you write the code as cleverly as possible, you are, by definition, not smart enough to debug it.'
 ]
-
+const generateId = () =>
+  Number((Math.random() * 1000000).toFixed(0))
+  export const createVote =(id) => {
+    return {
+      type: 'VOTE',
+      data: id
+    }
+  }
+  export const createAnecdote= (content) => {
+  return {
+    
+      type: 'NEW_ANECDOTE',
+      data: {
+        content,
+        id: generateId(),
+        votes: 0
+      }
+  }
+}
 const getId = () => (100000 * Math.random()).toFixed(0)
 
 const asObject = (anecdote) => {
@@ -47,6 +65,9 @@ const reducer = (state = initialState, action) => {
     default:
       return state
   }
+
+
+  
 
 }
 

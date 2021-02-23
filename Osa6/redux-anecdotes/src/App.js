@@ -1,35 +1,36 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
+import { createAnecdote, createVote } from './reducers/anecdoteReducer'
 
-const generateId = () =>
-  Number((Math.random() * 1000000).toFixed(0))
+
 
 const App = () => {
   const anecdotes = useSelector(state => state)
-  const dispatch = useDispatch() //mitä tällä tehdään?
+  const dispatch = useDispatch() 
 
   const vote = (id) => {
     console.log('vote', id)
-    dispatch({
-      type: 'VOTE',
-      data: id
-    })
+    dispatch(createVote(id))
   }
 
-  const createAnecdote = (event) => {
+
+
+  const addAnecdote = (event) => {
     event.preventDefault()
     const content = event.target.anecdote.value
     event.target.anecdote.value = ''
-    dispatch({
-      type: 'NEW_ANECDOTE',
-      data: {
-        content,
-        id: generateId(),
-        votes: 0
-      }
-    })
+   dispatch(createAnecdote(content))
+    
   }
+  // blogs.sort((a, b) => {
+  //   if (a.likes > b.likes) {
+  //     return -1
+  //   } if (a.likes < b.likes) {
+  //     return 1
+  //   }
+  //   return 0
 
+  // })
   return (
     <div>
       <h2>Anecdotes</h2>
@@ -45,7 +46,7 @@ const App = () => {
         </div>
       )}
       <h2>Create new</h2>
-      <form onSubmit={createAnecdote}>
+      <form onSubmit={addAnecdote}>
         <input name="anecdote" />
         <button type="submit">Create</button>
       </form>
