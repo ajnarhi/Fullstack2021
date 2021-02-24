@@ -6,8 +6,8 @@
 //   'Premature optimization is the root of all evil.',
 //   'Debugging is twice as hard as writing the code in the first place. Therefore, if you write the code as cleverly as possible, you are, by definition, not smart enough to debug it.'
 // ]
-const generateId = () =>
-  Number((Math.random() * 1000000).toFixed(0))
+// const generateId = () =>
+//   Number((Math.random() * 1000000).toFixed(0))
   export const createVote =(id) => {
     return {
       type: 'VOTE',
@@ -20,17 +20,15 @@ const generateId = () =>
       type: 'INIT_ANECDOTES',
       data: anecdotes,
     }}
-  export const createAnecdote= (content) => {
+  export const createAnecdote= (data) => { //muutettu content ->data
   return {
     
-      type: 'NEW_ANECDOTE',
-      data: {
-        content,
-        id: generateId(),
-        votes: 0
+      type: 'NEW_ANECDOTE', //anecdoteFormissa käytetään, mutta ei tällä NEW_ANECDOTE tyylillä. 
+      //Missä käytetään tätä ja missä createAnecdote (kuten formissa)ja miksi?
+      data
       }
   }
-}
+
 //const getId = () => (100000 * Math.random()).toFixed(0)
 
 // const asObject = (anecdote) => {
@@ -59,7 +57,7 @@ const reducer = (state = [], action) => {
           return {
             content: anecdote.content,
             id: action.data,
-            votes: anecdote.votes + 1
+            votes: (anecdote.votes || 0) + 1 //
 
           }
         }

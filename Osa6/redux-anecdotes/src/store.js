@@ -18,12 +18,12 @@ const store = createStore(
   composeWithDevTools()
 )
 
-anecdoteService.getAll().then(anecdotes =>
-  store.dispatch(initializeAnecdotes(anecdotes))
-  // anecdotes.forEach(anecdote => {
-  //   store.dispatch({ type: 'NEW_ANECDOTE', data: anecdote })
-  // })
-)
+// anecdoteService.getAll().then(anecdotes =>
+//   store.dispatch(initializeAnecdotes(anecdotes))
+//   // anecdotes.forEach(anecdote => {
+//   //   store.dispatch({ type: 'NEW_ANECDOTE', data: anecdote })
+//   // })
+// )
 
 
 export default store
