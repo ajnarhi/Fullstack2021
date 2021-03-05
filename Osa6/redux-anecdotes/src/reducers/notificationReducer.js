@@ -1,12 +1,14 @@
 
 const initialState = ""
-
+let timeoutRunning=null
 
 export const createNotification = (anecdote, time) => {
+  clearTimeout(timeoutRunning)
   return  async dispatch =>{
     dispatch({type: 'NOTIFY',
     data: anecdote})
-    setTimeout(() => {
+    
+    timeoutRunning=setTimeout(() => {
       dispatch({
         type: 'CLEARNOTI'
       
