@@ -8,9 +8,9 @@ const AnecdoteList = () => {
   const anecdotes = useSelector(state => state.anecdotes)//initialize on täyttänyt state.anecdotesiin anekdootits. Kun anekdoottilista muuttuu tietää tämä useSelector, että tila on muuttunut ja piirtää sivun uusiksi
   const dispatch = useDispatch() 
 
-  const vote = (id) => {
-    console.log('vote', id)
-    dispatch(createVote(id))
+  const vote = (anecdote) => {
+    console.log('vote', anecdote)
+    dispatch(createVote(anecdote))
   }
 
   anecdotes.sort((a, b) => {
@@ -31,7 +31,7 @@ const AnecdoteList = () => {
           </div>
           <div>
             has {anecdote.votes} votes {}
-            <button onClick={() => vote(anecdote.id)}>vote</button>
+            <button onClick={() => vote(anecdote)}>vote</button>
           </div>
         </div>
       )}

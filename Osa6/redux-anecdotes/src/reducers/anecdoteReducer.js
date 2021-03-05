@@ -1,11 +1,21 @@
 import anecdoteService from './../services/anecdotes'
 
-  export const createVote =(id) => {
-    return {
-      type: 'VOTE',
-      data: id
-    }
+
+export const createVote =(anecdote) => {
+  return async dispatch => {
+  const votedAnecdote=await anecdoteService.updateVotes(anecdote)
+  dispatch({  
+    type: 'VOTE',
+    data: votedAnecdote
+  })
+}
   }
+  // export const createVote =(id) => {
+  //   return {
+  //     type: 'VOTE',
+  //     data: id
+  //   }
+  // }
 
   export const initializeAnecdotes = () => {
     return async dispatch =>{
@@ -48,15 +58,12 @@ const reducer = (state = [], action) => {
     case 'VOTE':
 
       return state.map(anecdote => { //mapataan uusi taulukko siten, että jos id on eri kuin klikatun se lisätään sellaisenaan. Jos sama: lisää uusi olio
-        if (anecdote.id !== action.data) {
+        if (anecdote.id !== action.data.id) {
           return anecdote
         } else {
-          return {
-            content: anecdote.content,
-            id: action.data,
-            votes: (anecdote.votes || 0) + 1 //
+          return action.data
 
-          }
+          
         }
       })
       case 'NEW_ANECDOTE':

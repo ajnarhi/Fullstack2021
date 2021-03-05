@@ -13,5 +13,13 @@ const createNew = async (content) => {
   return response.data
 }
 
+const updateVotes= async(anecdote)=>{
 
-export default { getAll, createNew }
+  const object = { ...anecdote, votes:anecdote.votes+1 } //päivittyy db.jsoniin, koska otetaan ...anecdotella aikaisempi anekdootti ja päivitetään voes yhdellä
+  const response = await axios.put(baseUrl+"/"+anecdote.id, object)
+  return response.data
+}
+
+
+
+export default { getAll, createNew, updateVotes }
