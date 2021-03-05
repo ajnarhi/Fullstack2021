@@ -2,6 +2,7 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { createVote } from './../reducers/anecdoteReducer'
+import {createNotification} from './../reducers/notificationReducer'
 
 
 const AnecdoteList = () => {
@@ -11,6 +12,7 @@ const AnecdoteList = () => {
   const vote = (anecdote) => {
     console.log('vote', anecdote)
     dispatch(createVote(anecdote))
+    dispatch(createNotification(anecdote,10))
   }
 
   anecdotes.sort((a, b) => {
