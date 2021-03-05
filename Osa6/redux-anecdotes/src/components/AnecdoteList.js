@@ -5,7 +5,7 @@ import { createVote } from './../reducers/anecdoteReducer'
 
 
 const AnecdoteList = () => {
-  const anecdotes = useSelector(state => state.anecdotes)
+  const anecdotes = useSelector(state => state.anecdotes)//initialize on täyttänyt state.anecdotesiin anekdootits. Kun anekdoottilista muuttuu tietää tämä useSelector, että tila on muuttunut ja piirtää sivun uusiksi
   const dispatch = useDispatch() 
 
   const vote = (id) => {
