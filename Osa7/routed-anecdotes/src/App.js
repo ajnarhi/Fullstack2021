@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import {
   BrowserRouter as Router,
-  Switch, Route, Link
+  Switch, Route, Link,
+  useParams
 } from "react-router-dom"
 
 const Menu = () => {
@@ -12,27 +13,43 @@ const Menu = () => {
   
   return (
     <div>
-    <Link style={padding} to="/">anecdote</Link>
-    <Link style={padding} to="/createnew">create new</Link>
-    <Link style={padding} to="/about">about</Link>
+    <Link style={padding} to="/">Anecdotes</Link>
+    <Link style={padding} to="/createnew">Create new anecdote</Link>
+    <Link style={padding} to="/about">About</Link>
   </div>
   
   )
  }
+const Anecdote = ({anecdotes}) => {
+  console.log(anecdotes)
+  const id = useParams().id
+  console.log(id)
+  const anecdote = anecdotes.find(a => a.id === id)
+  console.log(anecdote)
+  return(
+  <div>
+    <h2>{anecdote.content} by {anecdote.author}</h2>
+    <p>Has {anecdote.votes} votes!</p> 
+    <p>{}</p>
+    <p>For more info see: <a href={anecdote.info}> {anecdote.info}</a> </p>
+
+  </div>
+)}
 
 const AnecdoteList = ({ anecdotes }) => (
   <div>
     <h2>Anecdotes</h2>
     <ul>
-      {anecdotes.map(anecdote => <li key={anecdote.id} >{anecdote.content}</li>)}
+      {anecdotes.map(anecdote => <li key={anecdote.id} > <Link to={`/anecdotes/${anecdote.id}`}>{anecdote.content}</Link></li>)}
     </ul>
   </div>
 )
 
+
 const About = () => (
   <div>
     <h2>About anecdote app</h2>
-    <p>According to Wikipedia:</p>
+    <p>According to Wikipedia:</p>}
 
     <em>An anecdote is a brief, revealing account of an individual person or an incident.
       Occasionally humorous, anecdotes differ from jokes because their primary purpose is not simply to provoke laughter but to reveal a truth more general than the brief tale itself,
@@ -134,7 +151,11 @@ const App = () => {
       <Router>
        
   <Menu/>
+  <h1>Software anecdotes</h1>
         <Switch>
+        <Route path="/anecdotes/:id">        
+        <Anecdote anecdotes={anecdotes} />      
+        </Route>
           <Route path="/createnew">
             <CreateNew />
           </Route>
