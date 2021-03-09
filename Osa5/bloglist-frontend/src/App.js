@@ -5,6 +5,7 @@ import blogService from './services/blogs'
 import loginService from './services/login'
 import Notification from './components/Notification'
 import BlogForm from './components/BlogForm'
+//import { Table, Form, Button } from 'react-bootstrap'
 
 
 
@@ -80,7 +81,7 @@ const App = () => {
 
   if (user === null) {
     return (
-      <div>
+      <div className="container">
         <h2>Log in to application</h2>
         <Notification message={errorMessage} isError={true} />
 
@@ -109,14 +110,14 @@ const App = () => {
             />
           </div>
           <p> </p>
-          <button type="submit" id="loginButton">Log in</button>
+          <button variant="primary" type="submit" id="loginButton">Log in</button>
         </form>
       </div>
     )
   }
 
   return (
-    <div>
+    <div className="container">
       <h2>Blogs</h2>
       {user.name} logged in!
       <p> </p>
